@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
 
-public class Note {
+public class Note implements Serializable {
 
     private static int counter = 1;
     private int id;

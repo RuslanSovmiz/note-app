@@ -11,7 +11,7 @@ public class Main {
 
     }
 
-    static void main() {
+    public static void main(String[] args) {
         Main app = new Main();
         app.runMenu();
 
@@ -32,22 +32,39 @@ public class Main {
                 scanner.nextLine();
                 switch (choise) {
                     case 1:
-                        noteApp.addNote();
+                        System.out.println("Введите заголовок: ");
+                        String title = scanner.nextLine();
+                        System.out.println("Введите текст заметки: ");
+                        String content = scanner.nextLine();
+                        noteApp.addNote(title, content);
                         break;
                     case 2:
                         noteApp.showAllNotes();
                         break;
                     case 3:
-                        noteApp.showNoteById();
+                        System.out.print("Введите ID заметки: ");
+                        int showNoteId = scanner.nextInt();
+                        scanner.nextLine();
+                        noteApp.showNoteById(showNoteId);
                         break;
                     case 4:
-                        noteApp.editNote();
+                        System.out.println("Введите ID заметки: ");
+                        int id = scanner.nextInt();
+                        scanner.nextLine();
+                        System.out.println("Введите новый заголовок (Enter - оставить без изменений): ");
+                        String editTitle = scanner.nextLine();
+                        System.out.println("Введите новый текст (Enter - оставить без изменений): ");
+                        String editContent = scanner.nextLine();
+                        noteApp.editNote(id, editTitle, editContent);
                         break;
                     case 5:
-                        noteApp.deleteNote();
+                        System.out.println("Введите ID заметки: ");
+                        int deleteId = scanner.nextInt();
+                        scanner.nextLine();
+                        noteApp.deleteNote(deleteId);
                         break;
                     case 0:
-                        System.exit(0);
+                        return;
                     default:
                         System.out.println("Неверный выбор!");
 

@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -7,7 +8,7 @@ public class Main {
 
     public Main() {
         this.scanner = new Scanner(System.in);
-        this.noteApp = new NoteManager();
+        this.noteApp = NoteManager.loadFromFile("Notes.ser");
 
     }
 
@@ -64,7 +65,14 @@ public class Main {
                         noteApp.deleteNote(deleteId);
                         break;
                     case 0:
-                        return;
+                        try {
+                            noteApp.saveToFile("Notes.ser");
+                            System.out.println("Сохранение прошло успешно!");
+                            return;
+                        } catch (IOException e) {
+                            System.out.println("Не удалось сохранить файл, повторите попытку!");
+                        }
+                        break;
                     default:
                         System.out.println("Неверный выбор!");
 

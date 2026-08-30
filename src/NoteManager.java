@@ -1,4 +1,4 @@
-import java.io.Serializable;
+import java.io.*;
 import java.util.HashMap;
 
 public class NoteManager implements Serializable {
@@ -75,12 +75,27 @@ public class NoteManager implements Serializable {
     }
 
 
-    public void saveToFile(String fileName) {
-
+    public void saveToFile(String fileName) throws IOException {
+        try (FileOutputStream fos = new FileOutputStream(fileName);
+             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(this);
+            System.out.println("Данные сохранены в файл: " + fileName);
+        }
     }
 
-    public void loadFromFile(String fileName) {
+    public static NoteManager loadFromFile(String fileName) {
+            File file = new File(fileName);
+            if (!file.exists()) {
+                return new NoteManager();
+            }
+            try (FileInputStream fis = new FileInputStream(fileName);
+                 ObjectInputStream ois = new ObjectInputStream(fis)) {
+                return (NoteManager) ois.readObject();
 
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("Ошибка при загрузке данных: " + e.getMessage());
+                return new NoteManager();
+            }
     }
 
 

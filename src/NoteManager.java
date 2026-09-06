@@ -84,7 +84,7 @@ public class NoteManager implements Serializable {
     }
 
     public static NoteManager loadFromFile(String fileName) {
-            File file = new File(fileName);
+        File file = new File(fileName);
             if (!file.exists()) {
                 return new NoteManager();
             }
@@ -97,6 +97,5 @@ public class NoteManager implements Serializable {
                 return new NoteManager();
             }
     }
-
 
 }

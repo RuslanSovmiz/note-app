@@ -13,9 +13,7 @@ public class Note implements Serializable {
     private String createdAt;
     private String updatedAt;
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
 
     public String getTitle() {
         return title;
@@ -60,9 +58,8 @@ public class Note implements Serializable {
         updateUpdatedAt();
     }
 
+    public Note() {
 
-
-
-
+    }
 
 }

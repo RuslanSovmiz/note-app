@@ -25,6 +25,7 @@ public class Main {
             System.out.println("3. Показать заметку по ID");
             System.out.println("4. Редактировать заметку");
             System.out.println("5. Удалить заметку");
+            System.out.println("6. Поиск Заметки");
             System.out.println("0. Выход");
             System.out.print("Выберите действие: ");
             try {
@@ -64,6 +65,11 @@ public class Main {
                         scanner.nextLine();
                         noteApp.deleteNote(deleteId);
                         break;
+                    case 6:
+                        System.out.println("Введите текст для поиска: ");
+                        String findText = scanner.nextLine();
+                        noteApp.findInText(findText);
+                        break;
                     case 0:
                         try {
                             noteApp.saveToFile("Notes.ser");
@@ -87,3 +93,4 @@ public class Main {
     }
 
 }
+

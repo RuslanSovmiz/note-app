@@ -48,6 +48,12 @@ public class Note implements Serializable {
         updatedAt = LocalDateTime.now().format(formatter);
     }
 
+    @Override
+    public String toString() {
+        return "ID: " + getId() + "\nЗаголовок: " + getTitle() +
+                "\nДата создания: " + getCreatedAt() + "\n" + getContent() + "\n-----------\n";
+    }
+
     public Note(String title, String content) {
         this.title = title;
         this.content = content;

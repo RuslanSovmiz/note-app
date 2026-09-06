@@ -28,8 +28,7 @@ public class NoteManager implements Serializable {
             System.out.println("Заметок пока нет!");
         } else {
             for (Note note : notes.values()) {
-                System.out.println("ID: " + note.getId() + "\nЗаголовок: " + note.getTitle() +
-                        "\nДата создания: " + note.getCreatedAt() + "\n" + note.getContent() + "\n-----------\n");
+                System.out.println(note.toString());
             }
         }
     }
@@ -65,12 +64,28 @@ public class NoteManager implements Serializable {
     public void showNoteById(int id) {
         Note foundNote = notes.get(id);
         if (foundNote != null) {
-            System.out.println("ID: " + foundNote.getId());
-            System.out.println("Заголовок : " + foundNote.getTitle());
-            System.out.println("Текст: " + foundNote.getContent());
-            System.out.println("Дата создания: " + foundNote.getCreatedAt());
+            System.out.println(foundNote);
         } else {
             System.out.println("Заметка с таким ID не найдена!");
+        }
+    }
+
+    public void findInText(String findText) {
+        boolean found = false;
+        if(findText.trim().isEmpty()) {
+            System.out.println("Введите текст для поиска");
+            return;
+        }
+        for(Note note : notes.values()) {
+            String title = note.getTitle();
+            String content = note.getContent();
+            if(title.toLowerCase().contains(findText.toLowerCase()) ||
+                    content.toLowerCase().contains(findText.toLowerCase())) {
+                found = true;
+                System.out.println("Результаты поиска: " + note.toString());
+            } else if(found = false) {
+                System.out.println("По вашему запросу ничего не найдено");
+            }
         }
     }
 
@@ -99,3 +114,4 @@ public class NoteManager implements Serializable {
     }
 
 }
+

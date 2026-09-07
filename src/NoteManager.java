@@ -1,4 +1,6 @@
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class NoteManager implements Serializable {
@@ -83,9 +85,19 @@ public class NoteManager implements Serializable {
                     content.toLowerCase().contains(findText.toLowerCase())) {
                 found = true;
                 System.out.println("Результаты поиска: " + note.toString());
-            } else if(found = false) {
-                System.out.println("По вашему запросу ничего не найдено");
             }
+        }
+        if(!found) {
+            System.out.println("По вашему запросу ничего не найдено");
+        }
+    }
+
+    public void sortNotesByTitle() {
+        ArrayList<Note> sortingNotes = new ArrayList<>();
+        sortingNotes.addAll(notes.values());
+        sortingNotes.sort(Comparator.comparing(Note::getTitle));
+        for (Note note : sortingNotes) {
+            System.out.println(note.toString());
         }
     }
 

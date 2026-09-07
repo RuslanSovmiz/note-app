@@ -26,6 +26,7 @@ public class Main {
             System.out.println("4. Редактировать заметку");
             System.out.println("5. Удалить заметку");
             System.out.println("6. Поиск Заметки");
+            System.out.println("7. Сортировка");
             System.out.println("0. Выход");
             System.out.print("Выберите действие: ");
             try {
@@ -70,6 +71,27 @@ public class Main {
                         String findText = scanner.nextLine();
                         noteApp.findInText(findText);
                         break;
+                    case 7:
+                        boolean back = false;
+                        while (!back) {
+                            System.out.println("1. Сортировка по алфавиту");
+                            System.out.println("2. Сортировка по дате создания/изменения");
+                            System.out.println("0. Выйти в гланое меню");
+                            int choiseSort = scanner.nextInt();
+                            scanner.nextLine();
+                            switch (choiseSort) {
+                                case 1:
+                                    noteApp.sortNotesByTitle();
+                                    break;
+                                case 2:
+                                    break;
+                                case 0:
+                                    back = true;
+                                    break;
+                            }
+                        }
+                        break;
+
                     case 0:
                         try {
                             noteApp.saveToFile("Notes.ser");
@@ -93,4 +115,3 @@ public class Main {
     }
 
 }
-

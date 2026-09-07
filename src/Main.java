@@ -84,6 +84,7 @@ public class Main {
                                     noteApp.sortNotesByTitle();
                                     break;
                                 case 2:
+                                    noteApp.sortNotesByUpdatedAt();
                                     break;
                                 case 0:
                                     back = true;

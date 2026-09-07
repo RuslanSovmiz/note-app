@@ -101,6 +101,15 @@ public class NoteManager implements Serializable {
         }
     }
 
+    public void sortNotesByUpdatedAt() {
+        ArrayList<Note> sortingNotes = new ArrayList<>();
+        sortingNotes.addAll(notes.values());
+        sortingNotes.sort(Comparator.comparing(Note::getUpdatedAt, Comparator.nullsFirst(Comparator.naturalOrder())));
+        for (Note note : sortingNotes) {
+            System.out.println(note.toString());
+        }
+    }
+
 
     public void saveToFile(String fileName) throws IOException {
         try (FileOutputStream fos = new FileOutputStream(fileName);

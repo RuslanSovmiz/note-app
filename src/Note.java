@@ -10,8 +10,8 @@ public class Note implements Serializable {
     private int id;
     private String title;
     private String content;
-    private String createdAt;
-    private String updatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public int getId() { return id; }
 
@@ -23,11 +23,11 @@ public class Note implements Serializable {
         return content;
     }
 
-    public String getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public String getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
@@ -39,29 +39,31 @@ public class Note implements Serializable {
         this.content = content;
     }
 
-    public void setUpdatedAt(String updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
     public void updateUpdatedAt() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        updatedAt = LocalDateTime.now().format(formatter);
+        updatedAt = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
-        return "ID: " + getId() + "\nЗаголовок: " + getTitle() +
-                "\nДата создания: " + getCreatedAt() + "\n" + getContent() + "\n-----------\n";
+        if (updatedAt == null) {
+            return "ID: " + getId() + "\nЗаголовок: " + getTitle() +
+                    "\nДата создания: " + getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + "\n" + getContent() + "\n-----------\n";
+        } else {
+            return "ID: " + getId() + "\nЗаголовок: " + getTitle() + "\nДата создания: " + getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) +
+                    "\nДата изменения: " + getUpdatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + "\n" + getContent() + "\n-----------\n";
+        }
     }
 
     public Note(String title, String content) {
         this.title = title;
         this.content = content;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        createdAt = LocalDateTime.now().format(formatter);
+        createdAt = LocalDateTime.now();
         this.id = counter;
         counter++;
-        updateUpdatedAt();
     }
 
     public Note() {

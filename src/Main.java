@@ -11,7 +11,6 @@ public class Main {
         this.noteApp = NoteManager.loadFromFile("Notes.ser");
 
     }
-
     public static void main(String[] args) {
         Main app = new Main();
         app.runMenu();

@@ -1,7 +1,5 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
+import java.util.*;
 
 public class NoteManager implements Serializable {
     HashMap<Integer, Note> notes = new HashMap<>();
@@ -78,13 +76,17 @@ public class NoteManager implements Serializable {
             System.out.println("Введите текст для поиска");
             return;
         }
+        String findTextLower = findText.toLowerCase();
         for(Note note : notes.values()) {
             String title = note.getTitle();
             String content = note.getContent();
-            if(title.toLowerCase().contains(findText.toLowerCase()) ||
-                    content.toLowerCase().contains(findText.toLowerCase())) {
+            if(title.toLowerCase().contains(findTextLower) ||
+                    content.toLowerCase().contains(findTextLower)) {
+                if (!found) {
+                    System.out.println("Результаты поиска: ");
+                }
                 found = true;
-                System.out.println("Результаты поиска: " + note.toString());
+                System.out.println(note);
             }
         }
         if(!found) {
@@ -121,17 +123,26 @@ public class NoteManager implements Serializable {
 
     public static NoteManager loadFromFile(String fileName) {
         File file = new File(fileName);
+        NoteManager loadedManager;
+        int maxId = 0;
             if (!file.exists()) {
                 return new NoteManager();
             }
             try (FileInputStream fis = new FileInputStream(fileName);
                  ObjectInputStream ois = new ObjectInputStream(fis)) {
-                return (NoteManager) ois.readObject();
+                loadedManager = (NoteManager) ois.readObject();
 
             } catch (IOException | ClassNotFoundException e) {
                 System.out.println("Ошибка при загрузке данных: " + e.getMessage());
                 return new NoteManager();
             }
+        for (Note note : loadedManager.notes.values()) {
+            if (note.getId() > maxId) {
+                maxId = note.getId();
+            }
+        }
+        Note.setCounter(maxId + 1);
+        return loadedManager;
     }
 
 }

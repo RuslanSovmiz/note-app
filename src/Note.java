@@ -35,6 +35,8 @@ public class Note implements Serializable {
         this.title = title;
     }
 
+    public static void setCounter(int counter) { Note.counter = counter; }
+
     public void setContent(String content) {
         this.content = content;
     }

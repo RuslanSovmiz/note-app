@@ -19,14 +19,14 @@ public class Main {
 
     public void runMenu () {
         while (true) {
-            System.out.println("1. Добавить заметку");
-            System.out.println("2. Показать все заметки");
-            System.out.println("3. Показать заметку по ID");
-            System.out.println("4. Редактировать заметку");
-            System.out.println("5. Удалить заметку");
-            System.out.println("6. Поиск Заметки");
-            System.out.println("7. Сортировка");
-            System.out.println("0. Выход");
+            System.out.println(" 1. Добавить заметку");
+            System.out.println(" 2. Показать все заметки");
+            System.out.println(" 3. Показать заметку по ID");
+            System.out.println(" 4. Редактировать заметку");
+            System.out.println(" 5. Удалить заметку");
+            System.out.println(" 6. Поиск Заметки");
+            System.out.println(" 7. Сортировка");
+            System.out.println(" 0. Выход");
             System.out.print("Выберите действие: ");
             try {
 
@@ -34,11 +34,15 @@ public class Main {
                 scanner.nextLine();
                 switch (choise) {
                     case 1:
+                        System.out.println(" 1. Работа\n 2. Дом\n 3. Учёба\n 4. Идеи");
+                        System.out.print("Выберите категорию заметки: ");
+                        int cat =  scanner.nextInt();
+                        scanner.nextLine();
                         System.out.println("Введите заголовок: ");
                         String title = scanner.nextLine();
                         System.out.println("Введите текст заметки: ");
                         String content = scanner.nextLine();
-                        noteApp.addNote(title, content);
+                        noteApp.addNote(title, content, cat);
                         break;
                     case 2:
                         noteApp.showAllNotes();

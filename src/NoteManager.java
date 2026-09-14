@@ -5,8 +5,20 @@ public class NoteManager implements Serializable {
     HashMap<Integer, Note> notes = new HashMap<>();
 
 
-    public void addNote(String title, String content) {
-
+    public void addNote(String title, String content, int cat) {
+        Category category = null;
+        if (cat < 1 || cat > 4) {
+            System.out.println("Выберите категорию из списка!");
+            return;
+        } else if (cat == 1) {
+            category = Category.WORK;
+        } else if (cat == 2) {
+            category = Category.HOME;
+        } else if (cat == 3) {
+            category = Category.STUDY;
+        } else {
+            category = Category.IDEAS;
+        }
         if (title.trim().isEmpty()) {
             System.out.println("Ошибка: заголовок не может быть пустым!");
             return;
@@ -15,7 +27,7 @@ public class NoteManager implements Serializable {
             System.out.println("Ошибка: заметка не может быть пустой!");
             return;
         } else {
-            Note newNote = new Note(title, content);
+            Note newNote = new Note(title, content, category);
             notes.put(newNote.getId(), newNote);
             System.out.println("Заметка успешно создана!");
             System.out.println("ID: " + newNote.getId());

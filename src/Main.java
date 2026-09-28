@@ -78,16 +78,23 @@ public class Main {
                         boolean back = false;
                         while (!back) {
                             System.out.println("1. Сортировка по алфавиту");
-                            System.out.println("2. Сортировка по дате создания/изменения");
-                            System.out.println("0. Выйти в гланое меню");
+                            System.out.println("2. Сортировка по дате изменения");
+                            System.out.println("3. Сортировка по дате создания");
+                            System.out.println("0. Выйти в главное меню");
                             int choiseSort = scanner.nextInt();
                             scanner.nextLine();
                             switch (choiseSort) {
                                 case 1:
+                                    noteApp.setSortType(SortType.TITLE);
                                     noteApp.sortNotesByTitle();
                                     break;
                                 case 2:
+                                    noteApp.setSortType(SortType.UPDATED_AT);
                                     noteApp.sortNotesByUpdatedAt();
+                                    break;
+                                case 3:
+                                    noteApp.setSortType(SortType.CREATED_AT);
+                                    noteApp.sortNotesByCreatedAt();
                                     break;
                                 case 0:
                                     back = true;

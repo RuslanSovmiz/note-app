@@ -3,6 +3,7 @@ import java.util.*;
 
 public class NoteManager implements Serializable {
     HashMap<Integer, Note> notes = new HashMap<>();
+    SortType sortType = SortType.NONE;
 
 
     public void addNote(String title, String content, int cat) {
@@ -38,10 +39,27 @@ public class NoteManager implements Serializable {
     public void showAllNotes() {
         if (notes.isEmpty()) {
             System.out.println("Заметок пока нет!");
-        } else {
-            for (Note note : notes.values()) {
-                System.out.println(note.toString());
-            }
+            return;
+        }
+        List<Note> sortingNotes;
+        switch(sortType) {
+            case NONE:
+                sortingNotes = new ArrayList<>(notes.values());
+                break;
+            case TITLE:
+                sortingNotes = sortNotesByTitle();
+                break;
+            case UPDATED_AT:
+                sortingNotes = sortNotesByUpdatedAt();
+                break;
+            case CREATED_AT:
+                sortingNotes = sortNotesByCreatedAt();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + sortType);
+        }
+        for (Note note : sortingNotes) {
+            System.out.println(note);
         }
     }
 
@@ -106,22 +124,25 @@ public class NoteManager implements Serializable {
         }
     }
 
-    public void sortNotesByTitle() {
-        ArrayList<Note> sortingNotes = new ArrayList<>();
+    public List<Note> sortNotesByTitle() {
+        List<Note> sortingNotes = new ArrayList<>();
         sortingNotes.addAll(notes.values());
         sortingNotes.sort(Comparator.comparing(Note::getTitle));
-        for (Note note : sortingNotes) {
-            System.out.println(note.toString());
-        }
+        return sortingNotes;
     }
 
-    public void sortNotesByUpdatedAt() {
-        ArrayList<Note> sortingNotes = new ArrayList<>();
+    public List<Note> sortNotesByUpdatedAt() {
+        List<Note> sortingNotes = new ArrayList<>();
         sortingNotes.addAll(notes.values());
         sortingNotes.sort(Comparator.comparing(Note::getUpdatedAt, Comparator.nullsFirst(Comparator.naturalOrder())));
-        for (Note note : sortingNotes) {
-            System.out.println(note.toString());
-        }
+        return sortingNotes;
+    }
+
+    public List<Note> sortNotesByCreatedAt() {
+        List<Note> sortingNotes = new ArrayList<>();
+        sortingNotes.addAll(notes.values());
+        sortingNotes.sort(Comparator.comparing(Note::getCreatedAt));
+        return sortingNotes;
     }
 
 
@@ -155,6 +176,10 @@ public class NoteManager implements Serializable {
         }
         Note.setCounter(maxId + 1);
         return loadedManager;
+    }
+
+    public void setSortType(SortType sortType) {
+        this.sortType = sortType;
     }
 
 }

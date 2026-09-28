@@ -38,6 +38,10 @@ public class Main {
                         System.out.print("Выберите категорию заметки: ");
                         int cat =  scanner.nextInt();
                         scanner.nextLine();
+                        if(!noteApp.checkCategory(cat)) {
+                            System.out.println("Выберите категорию из списка!");
+                            break;
+                        }
                         System.out.println("Введите заголовок: ");
                         String title = scanner.nextLine();
                         System.out.println("Введите текст заметки: ");
@@ -57,6 +61,10 @@ public class Main {
                         System.out.println("Введите ID заметки: ");
                         int id = scanner.nextInt();
                         scanner.nextLine();
+                        if (!noteApp.checkId(id)) {
+                            System.out.println("Заметка с таким ID не найдена!");
+                            break;
+                        }
                         System.out.println("Введите новый заголовок (Enter - оставить без изменений): ");
                         String editTitle = scanner.nextLine();
                         System.out.println("Введите новый текст (Enter - оставить без изменений): ");

@@ -69,6 +69,10 @@ public class NoteManager implements Serializable {
             System.out.println("Заметка с таким ID не найдена!");
             return;
         }
+        if (content.trim().isEmpty() && title.trim().isEmpty()) {
+            System.out.println("Заметка не изменена");
+            return;
+        }
         if (!title.trim().isEmpty()) {
             foundNote.setTitle(title);
         }
@@ -176,6 +180,14 @@ public class NoteManager implements Serializable {
         }
         Note.setCounter(maxId + 1);
         return loadedManager;
+    }
+
+    public boolean checkId(int id) {
+        return notes.get(id) != null;
+    }
+
+    public boolean checkCategory(int cat) {
+        return cat >= 1 && cat <= 4;
     }
 
     public void setSortType(SortType sortType) {
